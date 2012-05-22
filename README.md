@@ -1,4 +1,9 @@
-tdd-django-tutorial.com
-=======================
+Test-Driven Django Tutortial
+============================
 
-Test-Driven Django Tutorial on http://www.tdd-django-tutorial.com/
+Tutorial source code written by me.
+
+Tutorial Website:
+=================
+
+http://www.tdd-django-tutorial.com/
