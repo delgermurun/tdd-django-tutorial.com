@@ -4,7 +4,7 @@ tag_me()
 {
   tag_name=$1
   message=$2
-  TIME='date +%Y-%m-%d-%H-%M'
+  TIME=`date +%Y-%m-%d-%H-%M`
   git tag -d $tag_name
   git tag -a -f -m "$message" $tag_name-$TIME
   git push origin tag $tag_name-$TIME
