@@ -1,5 +1,7 @@
 from django.test import TestCase
 from django.utils import timezone
+from django.core.urlresolvers import reverse
+
 from polls.models import Poll, Choice
 
 
@@ -70,3 +72,31 @@ class ChoiceModelTest(TestCase):
     def test_choice_defaults(self):
         choice = Choice()
         self.assertEquals(choice.votes, 0)
+
+
+class HomePageViewTest(TestCase):
+    def test_root_url_shows_all_polls(self):
+        # Set up some polls
+        poll1 = Poll(question='6 times 7', pub_date=timezone.now())
+        poll1.save()
+        poll2 = Poll(question='life, the universe and everything', pub_date=timezone.now())
+        poll2.save()
+
+        response = self.client.get('/')
+
+        # check we've used the right template
+        self.assertTemplateUsed(response, 'polls/poll_list.html')
+        
+        # check we've passed the polls to the template
+        polls_in_context = response.context['polls']
+        self.assertEquals(list(polls_in_context), [poll1, poll2])
+
+        # check the poll names appear on the page
+        self.assertIn(poll1.question, response.content)
+        self.assertIn(poll2.question, response.content)
+
+        # check the page also contains the urls to individual polls page
+        poll1_url = reverse('polls-detail', args=[poll1.pk])
+        self.assertIn(poll1_url, response.content)
+        poll2_url = reverse('polls-detail', args=[poll2.pk])
+        self.assertIn(poll2_url, response.content)

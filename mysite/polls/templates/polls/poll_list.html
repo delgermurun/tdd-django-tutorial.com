@@ -1,0 +1,8 @@
+<html>
+  <body>
+    <h1>Polls</h1>
+    {% for poll in polls %}
+      <p><a href="{% url polls-detail poll.pk %}">{{ poll.question }}</a></p>
+    {% endfor %}
+  </body>
+</html>
