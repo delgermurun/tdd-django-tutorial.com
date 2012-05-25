@@ -8,6 +8,6 @@ from polls.views import Home, Detail
 
 urlpatterns = patterns('',
     url(r'^$', Home.as_view(), name='home'),
-    url(r'^poll/(\d+)/$', Detail.as_view(), name='polls-detail'),
+    url(r'^poll/(?P<pk>\d+)/$', Detail.as_view(), name='polls-detail'),
     url(r'^admin/', include(admin.site.urls)),
 )
